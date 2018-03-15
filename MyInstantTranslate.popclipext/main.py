@@ -64,7 +64,7 @@ def translate(to_translate, to_langage="auto", langage="auto"):
 	hello you alright?'''
 	agents = {'user-agent':"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",'accept-language':'en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4','upgrade-insecure-requests':'1'}
 	before_trans = 'class="t0">'
-	link = "https://translate.google.cn/m?hl=en&sl=en&tl=zh-CN&ie=UTF-8&prev=_m&q=%s" % (to_translate.strip().replace("#","").replace("\n"," ").replace("\r"," ").replace(" ", "+"))
+	link = "https://translate.google.cn/m?hl=en&sl=en&tl=zh-CN&ie=UTF-8&prev=_m&q=%s" % ('+'.join((to_translate.strip().replace("#","").replace("\n"," ").replace("//","").replace("\r"," ")).split()))
 	request = urllib2.Request(link, headers=agents)
 	page = urllib2.urlopen(request).read()
 	result = page[page.find(before_trans)+len(before_trans):]
